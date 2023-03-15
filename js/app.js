@@ -50,4 +50,11 @@ const displayPhones = (phones, dataLimit) =>{
     toggleSpinner(false);
 };
 
+const processSearch = (dataLimit) => {
+    toggleSpinner(true);
+    const searchField = document.getElementById("search-field");
+    const searchText = searchField.value;
+    loadPhones(searchText, dataLimit);
+}
+
 loadPhones("apple")
