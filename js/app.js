@@ -55,7 +55,7 @@ const processSearch = (dataLimit) => {
     const searchField = document.getElementById("search-field");
     const searchText = searchField.value;
     loadPhones(searchText, dataLimit);
-}
+};
 
 // handle search button click 
 document.getElementById("btn-search").addEventListener("click", function(){
@@ -78,6 +78,33 @@ const toggleSpinner = isLoading => {
     else{
         loaderSection.classList.add("d-none");
     }
+};
+
+// not the best way to load show all 
+document.getElementById("btn-show-all").addEventListener("click", function(){
+    processSearch();
+});
+
+const loadPhoneDetails = async id => {
+    const url = `https://openapi.programming-hero.com/api/phone/${id}`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+    displayPhoneDetails(data.data);
+};
+
+const displayPhoneDetails = phone =>{
+    console.log(phone)
+    const modalTitle = document.getElementById("phoneDetailModalLabel");
+    modalTitle.innerText = phone.name;
+    const phoneDetails = document.getElementById("phone-details");
+    console.log(phone.mainFeatures.sensors[0]);
+    phoneDetails.innerHTML = `
+        <p>Release Date: ${phone.releaseDate ? phone.releaseDate : "No Release Date Found"}</p>
+        <p> Storage: ${phone.mainFeatures ? phone.mainFeatures.storage : "No storage Information"}</p>
+        <p> Others: ${phone.others ? phone.others.Bluetooth : "No Bluetooth Information"} </p>
+        <p>Sensor: ${phone.mainFeatures.sensors ? phone.mainFeatures.sensors[0] : "No sensors"}</p>
+    `;
 };
 
 loadPhones("apple");
