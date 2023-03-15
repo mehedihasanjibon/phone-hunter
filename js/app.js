@@ -57,4 +57,17 @@ const processSearch = (dataLimit) => {
     loadPhones(searchText, dataLimit);
 }
 
-loadPhones("apple")
+// handle search button click 
+document.getElementById("btn-search").addEventListener("click", function(){
+    // start loader 
+    processSearch(10);
+});
+
+// search input field enter key handler 
+document.getElementById('search-field').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      processSearch(10);
+    }
+});
+
+loadPhones("apple");
